@@ -1,0 +1,60 @@
+main {
+	height: 100vh;
+}
+
+main .app-name, input, button {
+	font-family: "Grape Nuts", sans-serif !important;
+}
+
+.rounded-top-left-1 {
+  border-top-left-radius: 1rem !important;
+}
+
+.rounded-top-right-1 {
+  border-top-right-radius: 1rem;
+}
+
+.rounded-bottom-left-1 {
+  border-bottom-left-radius: 1rem;
+}
+
+.rounded-bottom-right-1 {
+  border-bottom-right-radius: 1rem;
+}
+
+.scale:active {
+  transform: scale(85%);
+}
+
+.ficha {
+	width: 80px;
+	height: 80px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	object-fit: cover;
+	transform: translate(-50%, -50%);
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+#line {
+	display: none;
+	position: absolute;
+	height: 6px;
+	width: 100%;
+	background-color: red;
+	top: 50%;
+	transform: rotate(360deg);
+	z-index: 9999;
+}
+
+top: 17%;
+	transform: rotate(360deg);
+
+/*transform: rotate(-30deg);*/
+/*transform: rotate(30deg);*/
+/*transform: rotate(360deg);*/
+/*transform: rotate(90deg);*/

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./favicon.png" rel="icon" />
+  <link href="./styles/tricki.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap" rel="stylesheet">
+  <title>Un juegito divertido llamado tricki</title>
+</head>
+<body>
+  <main class="container fluid d-flex align-items-center justify-content-center py-5">
+    <div id="game">
+      <h1 class="text-center mb-3 app-name">Tricki Game</h1>
+      <div class="d-flex justify-content-center mb-4">
+        <input id="username" type="text" name="user" placeholder="NickName" class="border-0 py-2 px-4 outline-0 shadow rounded form-control" />
+        <button id="play" class="border-0 ms-4 py-2 px-5 fw-bold rounded scale">Jugar!</button>
+      </div>
+
+      <div class="row justify-content-center px-4 position-relative overflow-hidden">
+        <div id="line"></div>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 rounded-top-left-1 scale"></button>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 scale"></button>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 scale rounded-top-right-1"></button>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 scale"></button>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 scale"></button>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 scale"></button>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 scale rounded-bottom-left-1"></button>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 scale"></button>
+        <button class="position-relative tab col-3 border-0 m-2 px-4 py-5 scale rounded-bottom-right-1"></button>
+      </div>
+    </div>
+  </main>
+
+  <!-- <audio src="./sounds/background-music.mp3" autoplay="true" loop="true"></audio> -->
+  <audio id="background-music" controls loop="true" hidden autoplay="true">
+    <source type="audio/mp3" src="./sounds/background-music.mp3"/>
+  </audio>
+
+  <script src="./scripts/validations.js"></script>
+  <script src="./scripts/localstorage.js"></script>
+  <script src="./scripts/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
