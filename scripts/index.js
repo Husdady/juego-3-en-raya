@@ -1,10 +1,20 @@
 'use strict';
 
 var USER_KEY = "username";
+
+// Comprobar si se ha empezado a jugar
 let isPlaying = false;
+
+// Condición para saber si el juego ha finalizado
 let gameFinished = false;
+
+// Comprobar si el usuario tiene que esperar para responder
 let delayForUserResponse = false;
+
+// Respuestas del usuario y bot
 let responses = [];
+
+// Casos posibles para ganar el juego
 const positionsForWin = {
 	case1: [0, 1, 2],
 	case2: [3, 4, 5],
@@ -39,6 +49,7 @@ function createFicha(color) {
 	const newFicha = document.createElement("img");
 	newFicha.className = "ficha";
 
+	// Comprobar si la ficha es roja
 	if (color === "red") {
 		newFicha.src = "./img/ficha-roja.png";
 	} else {
@@ -52,9 +63,12 @@ function createFicha(color) {
 function createAleatoryResponse(arr){
 	const arrCopy = [...arr];
 
+	// Aleatorizar la copia del arreglo
   for(let i = arrCopy.length - 1; i > 0; i--){
-     let j = Math.floor( Math.random() * (i + 1) );
-     [arrCopy[i], arrCopy[j]] = [arrCopy[j], arrCopy[i]];
+     let j = Math.floor(Math.random() * (i + 1));
+		 arrCopy[i] = arrCopy[j];
+		 arrCopy[j] = arrCopy[j]
+    //  [arrCopy[i], arrCopy[j]] = [arrCopy[j], arrCopy[i]];
   }
 
   return arrCopy;
@@ -72,6 +86,7 @@ function botResponse() {
 
 		// Si no contiene una ficha, es porque existe un lugar disponible para marcar
 		if (!existUserResponse) {
+			// Agregar los lugares de los botones a posibles respuestas del bot 
 			possiblesResponses.push({
 				index: i,
 				button: button,
@@ -82,6 +97,7 @@ function botResponse() {
 	// Obtener una respuesta aleatoria
 	const aleatoryResponse = createAleatoryResponse(possiblesResponses);
 
+	// Si no hay respuestas aleatorias
 	if (isEmptyArray(aleatoryResponse)) {
 		return alert("A sido un empate!");
 	}
@@ -94,11 +110,13 @@ function botResponse() {
 	// Mostrar la respuesta del bot en el tricki
 	button.appendChild(newFicha);
 
+	// Agregar respuesta de bot a todas las respuestas
 	responses.push({
 		isUser: false,
 		position: index,
 	});
 
+	// Comprobar si el bot gana
 	const botWin = verifyIfBotWin();
 
 	if (botWin) {
@@ -106,6 +124,7 @@ function botResponse() {
 		gameFinished = true;
 	}
 
+	// Esperar para el turno del usuario
 	setTimeout(() => {
 		delayForUserResponse = false;
 	}, 2000);
@@ -114,18 +133,27 @@ function botResponse() {
 // Comprobar si el usuario a ganado;
 function verifyIfUserWin() {
 	let userWin = false;
+
+	// Filtrar las respuestas del usuario
 	const userResponses = responses.filter((response) => response.isUser);
 
+	// Obtener las keys de los casos posibles a ganar
 	const positionKeys = Object.keys(positionsForWin);
 
+	// Iterar keys
 	positionKeys.forEach((key) => {
+		// Obtener un caso
 		const cases = positionsForWin[key];
 		let count = 0; 
 
 		cases.forEach((casePosition) => {
+			// Comprobar si la posición del botón que clickeo el usuario está en una posible posición a ganar
 			const match = userResponses.find((userResponse) => userResponse.position === casePosition);
 
+			// Si el usuario acierta una posición a ganar, el contador aumenta en 1
 			if (match) count += 1;
+
+			// Si el contador es 3 es porque un caso se ha completado, por lo que el usuario gana
 			if (count === 3) userWin = true;
 		});
 	});
@@ -136,18 +164,27 @@ function verifyIfUserWin() {
 // Comprobar si el usuario a ganado;
 function verifyIfBotWin() {
 	let botWin = false;
+
+	// Filtrar las respuestas del bot
 	const botResponses = responses.filter((response) => !response.isUser);
 
+	// Obtener las keys de los casos posibles a ganar
 	const positionKeys = Object.keys(positionsForWin);
 
+	// Iterar keys
 	positionKeys.forEach((key) => {
+		// Obtener un caso
 		const cases = positionsForWin[key];
 		let count = 0; 
 
 		cases.forEach((casePosition) => {
+			// Comprobar si la posición del botón que clickeo el bot está en una posible posición a ganar
 			const match = botResponses.find((botResponse) => botResponse.position === casePosition);
 
+			// Si el bot acierta una posición a ganar, el contador aumenta en 1
 			if (match) count += 1;
+
+			// Si el contador es 3 es porque un caso se ha completado, por lo que el bot gana
 			if (count === 3) botWin = true;
 		});
 	});
@@ -157,12 +194,16 @@ function verifyIfBotWin() {
 
 // Evento 'click' en los botones para mostrar una ficha
 function onPressButton(button, index) {
+	// Debe presionarse el botón jugar para empezar a jugar
 	if (!isPlaying) {
 		alert("Debes iniciar el juego, pulsando el botón \"Jugar!\" ");
 		return false;
 	}
 
+	// Si existe una ficha en un botón, finalizar función
 	if (button.hasChildNodes()) return;
+
+	// Si el usuario debe esperar para clickear
 	if (delayForUserResponse) {
 		alert("Aún no es tu turno!")
 		return false;
@@ -174,6 +215,7 @@ function onPressButton(button, index) {
 		position: index,
 	});
 
+	// Crear ficha
 	const newFicha = createFicha();
 
 	// Agregar respuesta de usuario
@@ -181,6 +223,7 @@ function onPressButton(button, index) {
 
 	delayForUserResponse = true;
 
+	// Comprobar si el usuario gana
 	const userWin = verifyIfUserWin();
 
 	if (userWin) {
@@ -198,7 +241,7 @@ function handleButtonsOnclick() {
 	const buttons = getButtons();
 	
 	buttons.forEach((button, i) => {
-		button.onclick = function(e) {
+		button.onclick = function() {
 			if (gameFinished) {
 				alert("El juego ha finalizado")
 				return false;
