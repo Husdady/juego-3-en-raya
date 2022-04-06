@@ -62,8 +62,6 @@ function createAleatoryResponse(arr){
 
 // Respuesta del bot
 function botResponse() {
-	if (winUser) return;
-
 	const buttons = getButtons();
 	const possiblesResponses = [];
 
@@ -158,11 +156,7 @@ function verifyIfBotWin() {
 }
 
 // Evento 'click' en los botones para mostrar una ficha
-function onPressButton(e, button, index) {
-	if (winUser || winBot) {
-		alert("La partida ha finalizado");
-	}
-
+function onPressButton(button, index) {
 	if (!isPlaying) {
 		alert("Debes iniciar el juego, pulsando el botón \"Jugar!\" ");
 		return false;
@@ -210,7 +204,7 @@ function handleButtonsOnclick() {
 				return false;
 			}
 
-			onPressButton(e, button, i);
+			onPressButton(button, i);
 		};
 	});
 }
